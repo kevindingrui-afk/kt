@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>技师上钟与营收管理系统</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">门店经营看板</p>
+        <h1>技师上钟与每日营收系统</h1>
+        <p class="subtitle">记录技师上钟数量、营收项目和金额，实时汇总每日经营表现。</p>
+      </div>
+      <button id="seedDemo" class="secondary-button" type="button">导入示例数据</button>
+    </header>
+
+    <main class="layout">
+      <section class="panel form-panel" aria-labelledby="formTitle">
+        <h2 id="formTitle">新增记录</h2>
+        <form id="recordForm">
+          <input id="recordId" type="hidden" />
+          <label>
+            日期
+            <input id="workDate" name="workDate" type="date" required />
+          </label>
+          <label>
+            技师姓名
+            <input id="technician" name="technician" type="text" placeholder="例如：小李" required />
+          </label>
+          <label>
+            营收项目
+            <input id="serviceItem" name="serviceItem" type="text" placeholder="例如：足疗 / SPA" required />
+          </label>
+          <div class="two-columns">
+            <label>
+              上钟数量
+              <input id="clockCount" name="clockCount" type="number" min="1" step="1" required />
+            </label>
+            <label>
+              金额（元）
+              <input id="amount" name="amount" type="number" min="0" step="0.01" required />
+            </label>
+          </div>
+          <label>
+            备注
+            <textarea id="note" name="note" rows="3" placeholder="可填写会员、渠道或其他说明"></textarea>
+          </label>
+          <div class="form-actions">
+            <button id="submitButton" type="submit">保存记录</button>
+            <button id="cancelEdit" class="secondary-button hidden" type="button">取消编辑</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="content">
+        <section class="toolbar panel" aria-label="筛选工具">
+          <label>
+            查看日期
+            <input id="filterDate" type="date" />
+          </label>
+          <button id="showAll" class="secondary-button" type="button">查看全部</button>
+          <button id="clearData" class="danger-button" type="button">清空数据</button>
+        </section>
+
+        <section class="cards" aria-label="统计摘要">
+          <article class="stat-card">
+            <span>总上钟数</span>
+            <strong id="totalClockCount">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>总营收</span>
+            <strong id="totalRevenue">¥0.00</strong>
+          </article>
+          <article class="stat-card">
+            <span>平均客单价</span>
+            <strong id="averageTicket">¥0.00</strong>
+          </article>
+          <article class="stat-card">
+            <span>技师人数</span>
+            <strong id="technicianCount">0</strong>
+          </article>
+        </section>
+
+        <section class="panel" aria-labelledby="recordsTitle">
+          <div class="section-header">
+            <h2 id="recordsTitle">营收记录</h2>
+            <span id="recordCount" class="pill">0 条</span>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>技师</th>
+                  <th>项目</th>
+                  <th>上钟</th>
+                  <th>金额</th>
+                  <th>备注</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="recordRows"></tbody>
+            </table>
+          </div>
+          <p id="emptyState" class="empty-state">暂无记录，请先新增一条营收数据。</p>
+        </section>
+
+        <section class="summary-grid">
+          <article class="panel">
+            <h2>项目营收</h2>
+            <div id="itemSummary" class="summary-list"></div>
+          </article>
+          <article class="panel">
+            <h2>技师汇总</h2>
+            <div id="technicianSummary" class="summary-list"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
